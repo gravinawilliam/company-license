@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/gravinawilliam/company-license.git",
   "author": "William Gravina <dev.gravinawilliam@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.1.2",
+    "typescript": "^5.0.4"
+  }
 }
