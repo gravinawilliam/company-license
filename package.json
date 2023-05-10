@@ -9,6 +9,7 @@
     "check:format": "prettier --check .",
     "check:lint": "eslint . --ext .js,.ts --color",
     "check:spelling": "cspell \"{README.md,TODO.md,.github/*.md,src/**/*.ts,**/*.md*}\"",
+    "check:types": "tsc --pretty --noEmit",
     "fix:format": "prettier --check --write --ignore-unknown .",
     "fix:lint": "eslint . --ext .js,.ts --color --fix"
   },
