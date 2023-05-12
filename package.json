@@ -6,6 +6,7 @@
   "author": "William Gravina <dev.gravinawilliam@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "tsup src",
     "check:format": "prettier --check .",
     "check:lint": "eslint . --ext .js,.ts --color",
     "check:spelling": "cspell \"{README.md,TODO.md,.github/*.md,src/**/*.ts,**/*.md*}\"",
@@ -63,8 +64,7 @@
     "jest-mock-extended": "^3.0.4",
     "prettier": "^2.8.8",
     "ts-jest": "^29.1.0",
+    "tsup": "^6.7.0",
     "typescript": "^5.0.4"
-  },
-  "dependencies": {
   }
 }
