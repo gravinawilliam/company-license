@@ -1,0 +1,94 @@
+name: Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+jobs:
+  validate:
+    name: ✅ Validate project
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # This NodeJS version is to equal in Dockerfile and .nvrmc
+        node-version: [18.16.0]
+
+    steps:
+      - name: ⬇️ Checkout project
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup NodeJS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📥 Install dependencies
+        run: npm install
+
+      - name: 🖍️ Check types
+        run: npm run check:types
+
+      - name: 💅 Check format
+        run: npm run check:format
+
+      - name: 📑 Check lint
+        run: npm run check:lint
+
+      - name: 🔤 Check spelling
+        run: npm run check:spelling
+
+      - name: 👩🏻‍💻 Run the danger
+        run: npm run danger:ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    name: 🧑‍🔬 Test project
+    runs-on: ubuntu-latest
+    needs: validate
+    strategy:
+      matrix:
+        # This NodeJS version is to equal in Dockerfile and .nvrmc
+        node-version: [18.16.0]
+
+    steps:
+      - name: ⬇️ Checkout project
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup NodeJS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📥 Install dependencies
+        run: npm install
+
+      - name: 🧪 Run the tests and
+        run: npm run test:coverage
+
+      - name: 📊 Generate coverage report
+        uses: codecov/codecov-action@v2
+
+  build:
+    name: 🧰 Build project
+    runs-on: ubuntu-latest
+    needs: test
+    strategy:
+      matrix:
+        # This NodeJS version is to equal in Dockerfile and .nvrmc
+        node-version: [18.16.0]
+
+    steps:
+      - name: ⬇️ Checkout project
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup NodeJS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📥 Install dependencies
+        run: npm install
+
+      - name: ⚒️ Build project
+        run: npm run build
