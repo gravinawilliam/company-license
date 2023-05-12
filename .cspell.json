@@ -33,7 +33,8 @@
     "**/fixtures/**",
     "**/public/**",
     "CHANGELOG.md",
-    "**/changelog.mdx"
+    "**/changelog.mdx",
+    "dangerfile.ts"
   ],
   "dictionaries": [
     "typescript",
