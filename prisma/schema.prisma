@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model CompanyTable {
+  corporateName String @map("corporate_name") @db.VarChar(255)
+  cnpj          String @unique @db.VarChar(14)
+
+  id        String    @id @unique @db.VarChar(255)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  companyAddress CompanyAddressTable?
+  LicenseTable   LicenseTable[]
+
+  @@map("companies")
+}
+
+model CompanyAddressTable {
+  zipCode      String @map("zip_code") @db.VarChar(8)
+  city         String @db.VarChar(255)
+  state        String @db.VarChar(255)
+  street       String @db.VarChar(255)
+  neighborhood String @db.VarChar(255)
+  complement   String @db.VarChar(255)
+
+  company   CompanyTable @relation(fields: [companyId], references: [id])
+  companyId String       @unique @map("company_id") @db.VarChar(255)
+
+  id        String    @id @unique @db.VarChar(255)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("company_addresses")
+}
+
+model LicenseTable {
+  licenseNumber       String   @unique @map("license_number") @db.VarChar(255)
+  environmentalAgency String   @map("environmental_agency") @db.VarChar(255)
+  emissionDate        DateTime @map("emission_date")
+  expirationDate      DateTime @map("expiration_date")
+
+  company   CompanyTable @relation(fields: [companyId], references: [id])
+  companyId String       @map("company_id") @db.VarChar(255)
+
+  id        String    @id @unique @db.VarChar(255)
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("licenses")
+}

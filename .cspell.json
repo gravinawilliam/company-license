@@ -34,7 +34,8 @@
     "**/public/**",
     "CHANGELOG.md",
     "**/changelog.mdx",
-    "dangerfile.ts"
+    "dangerfile.ts",
+    "README.md"
   ],
   "dictionaries": [
     "typescript",
@@ -51,5 +52,9 @@
     "lorem-ipsum",
     "es-es"
   ],
-  "words": []
+  "words": [
+    "cnpj",
+    "licenca",
+    "licencas"
+  ]
 }
