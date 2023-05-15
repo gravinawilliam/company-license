@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  database-mysql:
+    container_name: database-mysql
+    image: 'bitnami/mysql:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_USER: ${DB_MYSQL_ROOT_USERNAME}
+      MYSQL_PASSWORD: ${DB_MYSQL_PASSWORD}
+      MYSQL_USER: ${DB_MYSQL_USERNAME}
+      MYSQL_DATABASE: ${DB_MYSQL_DATABASE_NAME}
+    ports:
+      - '3306:3306'
+    restart: unless-stopped
+
